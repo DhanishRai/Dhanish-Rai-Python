@@ -1,0 +1,3 @@
+# ✅ Make sure Python files are always detected
+*.py linguist-detectable=true
+*.ipynb linguist-detectable=true
