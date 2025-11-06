@@ -155,8 +155,9 @@ def fade_in_text(new_word):
 def next_unique_word():
     global available_words, used_words
     if not available_words:
-        # refill with unused + AI-generated words
+        # refill with unused + shuffle for random order
         available_words = list(set(difficulty_map[current_difficulty]) - used_words)
+        random.shuffle(available_words)  # ✅ RANDOMIZE ORDER
         if not available_words:
             new_word = get_ai_word()
             used_words.add(new_word)
@@ -182,6 +183,7 @@ def toggle_game():
         word_label.configure(text=f"Game Started ({current_difficulty})!", text_color="#003366")
         used_words.clear()
         available_words = difficulty_map[current_difficulty].copy()
+        random.shuffle(available_words)  # ✅ Randomize list at start
     else:
         game_active = False
         start_btn.configure(text="🚀 Start Game", fg_color="#0096FF", hover_color="#00BFFF")
@@ -216,7 +218,7 @@ next_btn.grid(row=0, column=1, padx=20)
 # ---------- Footer ----------
 footer = ctk.CTkLabel(
     bg_frame,
-    text="♾️ Tech Pictionary | ALTIUS 2025 - AIML Department",
+    text="♾️ Infinite Tech Words | ALTIUS 2025 - AIML Department",
     font=ctk.CTkFont(size=18, weight="bold"),
     text_color="#003366"
 )
